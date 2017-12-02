@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>ALMOXARIFADO</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar um novo almoxarifado</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{almoxarifadoController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de almoxarifados</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{almoxarifadoController.listar()}" value="Exibir almoxarifados" class="btn btn-default "></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul><!-- /.message-list scroll -->
+
+                    </h:form>
+                </div><!-- /.box-content -->
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Cadastrar Almoxarifado
+                            </div>
+                            <div class="text">
+                                <p>Preencha corretamente os campos abaixo e defina um responsável do almoxarifado.</p>
+                            </div>
+
+                        </div>
+                        <div class="message-box scroll">
+                            <div class="message-in container-fluid p-l-3 p-r-3">
+                                <h:form>
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="numero" value="Número:" rendered="false"/>
+                                        <h:inputText value="#{almoxarifadoController.almoxarifado.numero}" id="numero" class="form-control" required="true" pt:placeholder="Digite o número do almoxarifado"/>
+                                    </div>
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="logradouro" value="Logradouro" rendered="false"/>
+                                        <h:inputText value="#{almoxarifadoController.almoxarifado.logradouro}" id="logradouro" class="form-control" required="true" pt:placeholder="Digite o logradouro"/>
+                                    </div>
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="bairro" value="Bairro" rendered="false"/>
+                                        <h:inputText value="#{almoxarifadoController.almoxarifado.bairro}" id="bairro" class="form-control" required="true" pt:placeholder="Digite o Bairro"/>
+                                    </div>
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="cidade" value="Cidade" rendered="false"/>
+                                        <h:inputText value="#{almoxarifadoController.almoxarifado.cidade}" id="cidade" class="form-control" required="true" pt:placeholder="Digite a cidade"/>
+                                    </div>
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="estado" value="estado" rendered="false"/>
+                                        <h:selectOneMenu id="estado" value="#{almoxarifadoController.almoxarifado.estado}" class="form-control custom-select">
+                                            <f:selectItem itemLabel="Selecionar Estado brasileiro" itemValue="#{null}" />
+                                            <f:selectItems value="#{almoxarifadoController.estadosBrasileiros}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado.abreviacao}" />
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                    <!--Lsita de usuarios-->
+
+
+                                    <div class="clearfix m-t-1">
+                                        <h:outputLabel for="ativo" value="Esta ativo?" rendered="true" styleClass="m-r-1 m-b-3 m-t-2"/>
+
+                                        <h:selectBooleanCheckbox value="#{almoxarifadoController.almoxarifado.ativo}" id="ativo" required="true" class="custom-checkbox"/>
+                                    </div>
+                                    <div class="clearfix m-t-1">
+                                        <h:commandButton action="#{almoxarifadoController.gravar()}" value="Gravar Função" class="btn btn-success form-control" />
+                                    </div>
+                                </h:form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

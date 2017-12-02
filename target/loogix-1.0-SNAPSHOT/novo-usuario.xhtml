@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      >
+    <h:head>
+        <h:outputStylesheet library="css" name="login.css"/>
+        <title>Loogix - Cadastro</title>
+    </h:head>
+    <h:body>
+        <div id="login">
+            <div class="logo">
+                <h:graphicImage library="images" name="logo.png"/>
+                <p>Preencha corretamente os campos abaixo.</p>
+            </div>
+            
+            <h:form>
+                <fieldset class="clearfix">
+                    <span class="fontawesome-user"></span>
+                    <h:inputText value="#{loginController.usuario.login}" pt:placeholder="Digite o nome do usuário"/>
+                    <span class="fontawesome-lock"></span>
+                    <h:inputSecret value="#{loginController.usuario.senha}" pt:placeholder="Digite a sua senha secreta"/>
+                    <span class="fontawesome-lock"></span>
+                    <h:inputText value="#{loginController.usuario.nomeSobrenome}" pt:placeholder="Digite seu nome e sobrenome"/>
+                    <span class="fontawesome-lock"></span>
+                    <h:inputText value="#{loginController.usuario.cidade}" pt:placeholder="Digite a sua cidade"/>
+                    
+                    
+                    <h:commandButton action="#{loginController.gravaUsuario()}" value="Gravar Usuário" />
+                </fieldset>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

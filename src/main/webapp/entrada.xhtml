@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>ENTRADA</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar uma nova entrada</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de entradas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.listar()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Emitir Relatório</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para emitir um relatório</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.relatorio()}" value="Emitir relatorio" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+                    </div>
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Listagem de Entradas
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar uma nova entrada, vá na opção na barra lateral.</p>
+                            </div>
+
+                        </div>
+                        <div class="box-content">
+                            <div>
+                                <h:form>
+                                    <h:dataTable id="items" value="#{entradaController.entradas}" var="entrada" class="table table-sm table-striped">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data" />
+                                            </f:facet>
+                                            <h:outputText value="#{entrada.dataFormatada}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantidade"/>
+                                            </f:facet>
+                                            <h:outputText value="#{entrada.quantidade}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome do Produto"/>
+                                            </f:facet>
+                                            <h:outputText value="#{entrada.produtoAlmoxarifado.produto.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Número do Amoxarifado"/>
+                                            </f:facet>
+                                            <h:outputText value="#{entrada.produtoAlmoxarifado.almoxarifado.numero}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Fornecedor"/>
+                                            </f:facet>
+                                            <h:outputText value="#{entrada.fornecedorExterno.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ações"/>
+                                            </f:facet>
+                                            <h:commandButton action="#{entradaController.gravar()}" value="Excluir" class="btn btn-danger btn-sm"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

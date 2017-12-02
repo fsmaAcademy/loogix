@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>SAÍDA</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar uma nova saída</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de saidas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.listar()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Relatório</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para emitir um relatório de todas as saidas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.relatorio()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Adicionar uma nova saída
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar uma nova saída, preencha corretamente os campos abaixo.</p>
+                                <p>Funcionários que não são gerentes, possuem apenas a categoria de listar entradas</p>
+                            </div>
+                        </div>
+                    </div><!-- /.box-info-messager -->
+                </div><!-- /.message-header -->
+                <h:form>
+                    <div class="message-box scroll">
+                        <div class="message-in container-fluid p-l-3 p-r-3">
+
+                            <div class="clearfix m-t-3">
+                                <h:outputText value="#{saidaController.saida.data}" id="data" />
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="quantidade" value="Nome:" rendered="false"/>
+                                <h:inputText value="#{saidaController.quantidade}" id="quantidade" class="form-control" required="true" pt:placeholder="Digite a quantidade" />
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="empregado" value="empregado" rendered="false"/>
+                                <h:selectOneMenu id="empregado" value="#{saidaController.empregadoSaida}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecionar o responsável" itemValue="#{null}" />
+                                    <f:selectItems value="#{saidaController.empregados}" var="empregado" itemLabel="#{empregado.nome}" itemValue="#{empregado.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="almoxarifado" value="almoxarifado" rendered="false"/>
+                                <h:selectOneMenu id="almoxarifado" value="#{saidaController.idProduto}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecionar o almoxarifado" itemValue="#{null}" />
+                                    <f:selectItems value="#{saidaController.almoxarifados}" var="almoxarifado" itemLabel="#{almoxarifado.cidade}/#{almoxarifado.estado}" itemValue="#{almoxarifado.id}" />
+                                </h:selectOneMenu>
+                            </div>
+                            
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="produto" value="produto" rendered="false"/>
+                                <h:selectOneMenu id="produto" value="#{saidaController.idProduto}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecionar o produto" itemValue="#{null}" />
+                                    <f:selectItems value="#{saidaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}" />
+                                </h:selectOneMenu>
+                            </div>
+                            
+
+                            <div class="clearfix m-t-1">
+                                <h:commandButton action="#{saidaController.gravar()}" value="Gravar Saida" class="btn btn-success form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

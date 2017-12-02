@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>FORNECEDOR</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar um novo fornecedor</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{fornecedorController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de fornecedores externos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{fornecedorController.listar()}" value="Exibir fornecedores" class="btn btn-default "></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul><!-- /.message-list scroll -->
+
+                    </h:form>
+                </div><!-- /.box-content -->
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Listagem de Fornecedores
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar um novo fornecedor, vá na opção na barra lateral.</p>
+                            </div>
+
+                        </div>
+                        <div class="box-content">
+                            <div class="m-t-3">
+                                <h:form>
+                                    <h:dataTable id="items" value="#{fornecedorController.fornecedoresExternos}" var="fornecedor" class="table table-sm table-striped">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Código" />
+                                            </f:facet>
+                                            <h:outputText value="#{fornecedor.codigo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{fornecedor.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ações"/>
+                                            </f:facet>
+                                            <h:commandButton action="#{fornecedorController.iniciarAlterar(fornecedor)}" value="Alterar" class="btn btn-primary btn-sm"/>
+                                            <h:commandButton action="#{fornecedorController.excluir(fornecedor)}" value="Excluir" class="btn btn-danger btn-sm"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      >
+    <h:head>
+        <title>Loogix | Seja bem vindo</title>
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <!-- Boostrap style -->
+        <!--<h:outputStylesheet library="css" name="bootstrap.min.css"/>-->
+        <h:outputStylesheet library="css" name="bootstrap4-alpha3.min.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="responsive.css"/>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+
+        <!-- jQuery 3 -->
+        <h:outputScript library="js" name="jquery.min.js"/>
+        <h:outputScript library="js" name="tether.min.js"/>
+        <h:outputScript library="js" name="jquery.mask.min.js"/>
+        <h:outputScript library="js" name="bootstrap4-alpha3.min.js"/>
+        <h:outputScript library="js" name="main.js"/>
+
+    </h:head>
+    <h:body>
+        <header id="header" class="header fixed">
+            <div class="navbar-top">
+                <div class="curren-menu info-left">
+                    <div class="logo">
+                        <a href="index.xhtml" title="Acesse a home">
+                            <img src="resources/images/logo.png" alt="Loogix | Painel Administrativo"/>
+                        </a>
+                    </div>
+                    <div class="top-button">
+                        <span></span>
+                    </div>
+                    <div class="box-search">
+                        <h:form>
+                            <h:inputText value="#{produtoController.nomeBusca}" pt:placeholder="Código ou nome do produto e presssione Enter"/>
+                            <h:commandButton action="#{produtoController.produtosPorCodigoOuNome()}" value="Buscar" class="btn btn-sm btn-danger botao-busca"/>
+                        </h:form>
+                    </div>
+                </div>
+                <ul class="info-right">
+                    <li class="user">
+                        <div class="avatar">
+                            <span class="ion ion-ios-person-outline" style="font-size: 3.5em"></span>
+                        </div>
+                        <div class="info">
+                            <h:form class="m-l-0">
+                            <p class="name text-uppercase float-left nome-inline">#{loginController.usuario.nomeSobrenome}</p>
+                                <h:commandButton value="Perfil" action="#{loginController.iniciarAlterar()}" class="btn btn-success btn-sm float-left waves-effect waves-teal"/>
+                                <h:commandButton value="Sair" action="#{loginController.desloga()}" class="btn btn-danger btn-sm waves-effect waves-teal btn-danger-menu"/>
+                            </h:form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </header>
+
+        <section class="vertical-navigation left">
+            <h:form>
+                <ul class="sidebar-nav">
+                    <li class="dashboard waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{templateController.home()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-pulse-strong font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Painel principal</span>
+                        </h:commandLink>
+
+                    </li>
+
+                    <li class="message waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{produtoController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-cart-outline font-menu"></div>
+                                <!-- <span>3</span> -->
+                            </div>
+                            <span class="text-uppercase">Produto</span>
+                        </h:commandLink>
+
+                    </li>
+
+                    <li class="calendar waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{almoxarifadoController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-home-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Almoxarifado</span>
+                        </h:commandLink>
+
+                    </li>
+                    <li class="pages waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{empregadoController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-people-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Empregado</span>
+                        </h:commandLink>
+
+                    </li>
+                    <li class="setting waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{funcaoController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-americanfootball-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Função</span>
+                        </h:commandLink>
+
+                    </li>
+
+                    <li class="apps waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{fornecedorController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-briefcase-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Fornecedor</span>
+                        </h:commandLink>
+
+
+                    </li>
+                    <li class="apps waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{entradaController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-upload-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Entrada</span>
+                        </h:commandLink>
+                    </li>
+                    <li class="apps waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{saidaController.listar()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-download-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase item-menu">Saída</span>
+                        </h:commandLink>
+                    </li>
+                    <li class="setting waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{loginController.novoUsuario()}">
+                            <div class="img-nav">
+                                <div class="ion ion-ios-personadd-outline font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Novo usuário</span>
+                        </h:commandLink>
+
+                    </li>
+                    <li class="setting waves-effect waves-teal item-menu">
+                        <h:commandLink action="#{loginController.desloga()}">
+                            <div class="img-nav">
+                                <div class="ion ion-log-out font-menu"></div>
+                            </div>
+                            <span class="text-uppercase">Sair</span>
+                        </h:commandLink>
+
+                    </li>
+                </ul>
+            </h:form>
+        </section>
+        <main>
+            <ui:insert name="corpo"></ui:insert>
+
+
+        </main>
+
+    </h:body>
+</html>
+

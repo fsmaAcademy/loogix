@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>PRODUTO</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar um novo produto</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{produtoController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de produtos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{produtoController.listar()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul><!-- /.message-list scroll -->
+
+                    </h:form>
+                </div><!-- /.box-content -->
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Listagem de produtos
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar um novo produto, vá na opção na barra lateral.</p>
+                            </div>
+
+                        </div>
+                        <div class="box-content">
+                            <div class="m-t-3">
+                                <h:form>
+                                    <h:dataTable id="items" value="#{produtoController.produtos}" var="produto" class="table table-sm table-striped">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Código" />
+                                            </f:facet>
+                                            <h:outputText value="#{produto.codigo}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{produto.nome}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descrição"/>
+                                            </f:facet>
+                                            <h:outputText value="#{produto.descricao}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ações"/>
+                                            </f:facet>
+                                            <h:commandButton action="#{produtoController.iniciarAlterar(produto)}" value="Alterar" class="btn btn-primary btn-sm"/>
+                                            <h:commandButton action="#{produtoController.excluir(produto)}" value="Excluir" class="btn btn-danger btn-sm" style="color: #fff; margin-top: 5px;"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>ENTRADA</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar uma nova entrada</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de entradas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.listar()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Emitir Relatório</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para emitir um relatório</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{entradaController.relatorio()}" value="Emitir relatorio" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Adicionar uma nova entrada
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar uma nova entrada, preencha corretamente os campos abaixo.</p>
+                                <p>Funcionários que não são gerentes, possuem apenas a categoria de listar entradas</p>
+                            </div>
+                        </div>
+                    </div><!-- /.box-info-messager -->
+                </div><!-- /.message-header -->
+                <h:form>
+                    <div class="message-box scroll">
+                        <div class="message-in container-fluid p-l-3 p-r-3">
+
+                            <div class="clearfix m-t-3">
+                                <h:outputLabel for="data" value="Data" rendered="false"/>
+                                <h:outputText value="#{entradaController.entrada.data}" id="data"/>
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="quantidade" value="Nome:" rendered="false"/>
+                                <h:inputText value="#{entradaController.entrada.quantidade}" id="quantidade" class="form-control" required="true" pt:placeholder="Digite a quantidade"/>
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="fornecedor" value="Almoxarifado" rendered="false"/>
+                                <h:selectOneMenu id="fornecedor" value="#{entradaController.idFornecedorEntrada}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecionar o Fornecedor" itemValue="#{null}" />
+                                    <f:selectItems value="#{entradaController.fornecedores}" var="fornecedor" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="produto" value="Almoxarifado" rendered="false"/>
+                                <h:selectOneMenu id="produto" value="#{entradaController.idProdutoEntrada}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecione o produto" itemValue="#{null}" />
+                                    <f:selectItems value="#{entradaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produo.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="almoxarifado" value="Almoxarifado" rendered="false"/>
+                                <h:selectOneMenu id="almoxarifado" value="#{entradaController.idAlmoxarifadoEntrada}" class="form-control custom-select">
+                                    <f:selectItem itemLabel="Selecione o Almoxarifado" itemValue="#{null}" />
+                                    <f:selectItems value="#{entradaController.almoxarifados}" var="amoxarifado" itemLabel="#{amoxarifado.cidade} / #{amoxarifado.estado}" itemValue="#{amoxarifado.id}" />
+                                </h:selectOneMenu>
+                            </div>
+
+
+                            <div class="clearfix m-t-1">
+                                <h:commandButton action="#{fornecedorController.gravar()}" value="Gravar fornecedor" class="btn btn-success form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

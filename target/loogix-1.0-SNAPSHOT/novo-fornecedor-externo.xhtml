@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>FORNECEDOR</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar um novo fornecedor</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{fornecedorController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de fornecedores externos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{fornecedorController.listar()}" value="Exibir fornecedores" class="btn btn-default "></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul><!-- /.message-list scroll -->
+
+                    </h:form>
+                </div><!-- /.box-content -->
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+
+                    </div><!-- /.move-message -->
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Adicionar um novo produto
+                            </div>
+                            <div class="text">
+                                <p>Para adicionar um novo produto, preencha corretamente os campos abaixo.</p>
+                                <p>Funcionários que não são gerentes, possuem apenas a categoria de listar um produto</p>
+                            </div>
+                        </div>
+                    </div><!-- /.box-info-messager -->
+                </div><!-- /.message-header -->
+                <h:form>
+                    <div class="message-box scroll">
+                        <div class="message-in container-fluid p-l-3 p-r-3">
+
+                            <div class="clearfix m-t-3">
+                                <h:outputLabel for="codigo" value="Código" rendered="false"/>
+                                <h:inputText value="#{fornecedorController.fornecedorExterno.codigo}" id="codigo" class="form-control" required="true" pt:placeholder="Digite o codigo do fornecedor"/>
+                            </div>
+                            
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="nome" value="Nome:" rendered="false"/>
+                                <h:inputText value="#{fornecedorController.fornecedorExterno.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome do fornecedor"/>
+                            </div>
+                            
+                            <div class="clearfix m-t-1">
+                                <h:commandButton action="#{fornecedorController.gravar()}" value="Gravar fornecedor" class="btn btn-success form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </section>
+
+    </ui:define>
+
+</ui:decorate>

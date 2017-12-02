@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template.xhtml">
+
+    <ui:define name="corpo">
+
+        <section id="message">
+            <div class="box box-message">
+                <div class="box-header">
+                    <div class="header-title">
+                        <div class="ion ion-ios-cart-outline font-menu"></div>
+                        <span>SAÍDA</span>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h:form>
+                        <ul class="message-list scroll">
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Novo</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para cadastrar uma nova saída</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.novo()}" value="Cadastrar" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Exibir</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para exibir uma lista de saidas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.listar()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+
+                            <li class="waves-effect waves-teal no-pointer">
+                                <div class="left">
+                                    <div class="content">
+                                        <div class="username">
+                                            <div class="name">Relatório</div>
+                                        </div>
+                                        <div class="text">
+                                            <p>Clique aqui para emitir um relatório de todas as saidas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="left m-t-1">
+                                    <div>
+                                        <h:commandButton action="#{saidaController.relatorio()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="message-info right">
+                <div class="message-header">
+                    <div class="move-message">
+                    </div>
+                    <div class="box-info-messager">
+
+                        <div class="content">
+                            <div class="username">
+                                Emitir relatório
+                            </div>
+                            <div class="text">
+                                <p>Selecione a data de origem e destino para emitir um relatório</p>
+                            </div>
+
+                        </div>
+                        <div class="box-content">
+                            <div class="m-t-3">
+                                <h:form>
+
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <p:outputLabel for="dataInicio" value="Data início:" />
+                                            <p:inputMask id="dataInicio" value="#{saidaController.dataInicio}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <p:outputLabel for="dataFim" value="Data de Fim" />
+                                            <p:inputMask id="dataFim" value="#{saidaController.dataFim}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h:commandButton action="#" value="Salvar relatório" class="btn btn-primary btn-lg m-t-1 m-t-btn"/>
+                                        </div>
+                                    </div>
+
+
+
+                                    
+
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </ui:define>
+
+</ui:decorate>
