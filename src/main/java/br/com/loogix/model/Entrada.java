@@ -8,6 +8,7 @@ package br.com.loogix.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -30,8 +29,6 @@ public class Entrada implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate data;
     private Integer quantidade;
     
@@ -39,7 +36,7 @@ public class Entrada implements Serializable {
     @JoinColumn (name = "id_fornecedor")
     private FornecedorExterno fornecedorExterno;
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn (name = "id_produto_almoxarifado")
     private ProdutoAlmoxarifado produtoAlmoxarifado;
 
@@ -72,6 +69,11 @@ public class Entrada implements Serializable {
     }
 
     public ProdutoAlmoxarifado getProdutoAlmoxarifado() {
+        
+//        if(produtoAlmoxarifado == null) {
+//            produtoAlmoxarifado = new ProdutoAlmoxarifado();
+//        }
+        
         return produtoAlmoxarifado;
     }
 
@@ -113,8 +115,5 @@ public class Entrada implements Serializable {
         }
         return true;
     }
-
-    
-    
     
 }

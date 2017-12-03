@@ -41,15 +41,16 @@ public class ProdutoAlmoxarifadoDAO implements Serializable {
         
         StringBuilder sb = new StringBuilder();
         sb.append("select pa from ProdutoAlmoxarifado pa ");
-        sb.append("where pa.almoxarifado = :pAlmoxarifado ");
-        sb.append("and pa.produto = :pProduto");
+        sb.append("where pa.almoxarifado.id = :pAlmoxarifado ");
+        sb.append("and pa.produto.id = :pProduto");
         
         TypedQuery<ProdutoAlmoxarifado> query = em.createQuery(
-                "select pa from ProdutoAlmoxarifado pa where pa.almoxarifado.id = :idAlmoxarifado and pa.produto.id = :idProduto",
+                sb.toString(),
                 ProdutoAlmoxarifado.class
         );
-        query.setParameter("idAlmoxarifado", idAlmoxarifado);
-        query.setParameter("idProduto", idProduto);
+        
+        query.setParameter("pAlmoxarifado", idAlmoxarifado);
+        query.setParameter("pProduto", idProduto);
         
         try {
             return query.getSingleResult();

@@ -102,21 +102,19 @@
                                 <h:form>
 
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <p:outputLabel for="dataInicio" value="Data início:" />
                                             <p:inputMask id="dataInicio" value="#{saidaController.dataInicio}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <p:outputLabel for="dataFim" value="Data de Fim" />
                                             <p:inputMask id="dataFim" value="#{saidaController.dataFim}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <h:commandButton action="#" value="Salvar relatório" class="btn btn-primary btn-lg m-t-1 m-t-btn"/>
+                                        <div class="col-lg-3">
+                                            <h:commandButton action="#{saidaController.gerarRelatorioDetalhe()}" value="Emitir relatório" class="btn btn-primary m-t-1 m-t-btn"/>
                                         </div>
+
                                     </div>
-
-
-
                                     
 
                                 </h:form>

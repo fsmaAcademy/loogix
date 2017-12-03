@@ -10,6 +10,7 @@ import br.com.loogix.dao.EmpregadoDAO;
 import br.com.loogix.dao.ProdutoAlmoxarifadoDAO;
 import br.com.loogix.dao.ProdutoDAO;
 import br.com.loogix.dao.SaidaDAO;
+import br.com.loogix.helper.MsgFeedBackUsuario;
 import br.com.loogix.model.Almoxarifado;
 import br.com.loogix.model.Empregado;
 import br.com.loogix.model.Produto;
@@ -53,6 +54,7 @@ public class SaidaController implements Serializable {
 
     private Saida saida;
     private List<Saida> saidas;
+    private List<Saida> saidasFiltradas;
 
     private Long idEmpregadoSaida;
     private Long idProduto;
@@ -62,6 +64,7 @@ public class SaidaController implements Serializable {
 
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    private String mensagem;
 
     public String listar() {
         this.saidas = this.saidaDAO.getList();
@@ -74,46 +77,77 @@ public class SaidaController implements Serializable {
         this.saida.setData(LocalDate.now());
         return "novo-saida?faces-redirect=true";
     }
-    
+
     public String gravar() {
-        
-        this.empregado = this.empregadoDAO.buscaPorId(this.idEmpregadoSaida);
-        this.saida.setEmpregado(this.empregado);
-        
-        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(this.idProduto);
-        this.produtoAlmoxarifado.setAlmoxarifado(this.almoxarifado);
-        
-        this.produto = this.produtoDAO.buscaPorId(this.idProduto);
-        
-        this.produtoAlmoxarifado.setProduto(this.produto);
-        this.produtoAlmoxarifado.setQuantidade(this.saida.getQuantidade());
-        
-        this.saida.setProdutoAlmoxarifado(this.produtoAlmoxarifado);
-        this.produtoAlmoxarifado.setSaida(this.saida);
-        
-        if(produtoAlmoxarifadoDAO.busca(this.idAlmoxarifado, this.idProduto) != null) {
-            this.produtoAlmoxarifadoDAO.update(this.produtoAlmoxarifado);
-        } else {
-            this.produtoAlmoxarifadoDAO.add(produtoAlmoxarifado);
+
+        mensagem = null;
+        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifado);
+        this.empregado = this.empregadoDAO.buscaPorId(idEmpregadoSaida);
+        this.produto = this.produtoDAO.buscaPorId(idProduto);
+
+        MsgFeedBackUsuario.AdicionaMensagemErro("Olá mundo");
+        System.out.println("Produto Id: " + idProduto);
+        System.out.println("Empregado Id: " + idEmpregadoSaida);
+        System.out.println("Almoxarifado Id: " + idAlmoxarifado);
+        //Quantidade tem que ser maior que ZERO
+
+        if (saida.getQuantidade() <= 0) {
+            this.mensagem = "A quantidade deve ser maior que zero";
+            return null;
         }
 
-        this.saidaDAO.add(saida);
+        //Almoxarifado deve ser informado
+        if (almoxarifado == null) {
+            this.mensagem = "O almoxarifado deve ser informado";
+            return null;
+        }
+
+        //Produto deve ser informado
+        if (produto == null) {
+            this.mensagem = "O produto deve ser informado";
+            return null;
+        }
+        //O produto deve referenciar ao almoxarifado
+        ProdutoAlmoxarifado pa = this.produtoAlmoxarifadoDAO.busca(
+                idAlmoxarifado,
+                idProduto
+        );
+        if (pa == null) {
+            this.mensagem = "O produto deve pertencer ao almoxarifado";
+            return null;
+        }
+        //O responsavel deve ser informado
+        if (empregado == null) {
+            this.mensagem = "O responsável deve ser informado";
+            return null;
+        }
+        //Quantidade inferior ou igual a quantidade em estoque
+        if (pa.getQuantidade() < saida.getQuantidade()) {
+            this.mensagem = "Quantidade informada não tem em nosso estoque";
+            return null;
+        }
+
+        System.out.println("Alterando produto almoxarifado");
+        System.out.println("PA: " + pa.getId());
+        pa.setQuantidade(pa.getQuantidade() - saida.getQuantidade());
+
+        this.saida.setProdutoAlmoxarifado(pa);
+        this.saida.setEmpregado(empregado);
+
+        this.saidaDAO.update(this.saida);
+
         this.saidas = this.saidaDAO.getList();
+
         return "saida?faces-redirect=true";
+
     }
-    
-    public String emitirRelatorio() {
-        
-        /*
-        1. Pegar data inicio
-        2. pegar data Fim
-        3. Buscar Lista de Saidas Durante este periodo
-        4. Jogar a busca para dentro de uma variável Saida
-        5. Pegar a saída e jogar para a classe que vai trabalhar na conversão para excel
-        6. Fazer download do arquivo
-        */
-        
-        return null;
+
+    public String gerarRelatorioDetalhe() {
+        this.saidasFiltradas = this.saidaDAO.buscaPorTempoDeterminado(
+                this.dataInicio,
+                this.dataFim
+        );
+        return "relatorio-saida-detalhe?faces-redirect=true";
     }
 
     public String relatorio() {
@@ -121,7 +155,7 @@ public class SaidaController implements Serializable {
         this.dataFim = null;
         return "relatorio-saida?faces-redirect=true";
     }
-    
+
     public Produto getProduto() {
         return produto;
     }
@@ -240,6 +274,18 @@ public class SaidaController implements Serializable {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public List<Saida> getSaidasFiltradas() {
+        return saidasFiltradas;
+    }
+
+    public void setSaidasFiltradas(List<Saida> saidasFiltradas) {
+        this.saidasFiltradas = this.saidaDAO.buscaPorTempoDeterminado(dataInicio, dataFim);
+    }
+
+    public String getMensagem() {
+        return this.mensagem;
     }
 
 }

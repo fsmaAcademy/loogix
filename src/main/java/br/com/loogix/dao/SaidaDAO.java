@@ -7,6 +7,7 @@ package br.com.loogix.dao;
 
 import br.com.loogix.model.Saida;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -55,4 +56,22 @@ public class SaidaDAO implements Serializable {
         TypedQuery<Long> q = em.createQuery("select count(s.id) from Saida s", Long.class);
         return q.getSingleResult();
     }
+    
+    public List<Saida> buscaPorTempoDeterminado(LocalDate dataInicio, LocalDate dataFim) {
+        
+        TypedQuery tq = this.em.createQuery(
+                "SELECT s from Saida s WHERE s.data = :dataInicio and s.data = :dataFim",
+                Saida.class);
+        
+        tq.setParameter("dataInicio", dataInicio);
+        tq.setParameter("dataFim", dataFim);
+        
+        try {
+            return tq.getResultList();
+        } catch (Exception e){
+            return null;
+        }
+        
+    }
+    
 }

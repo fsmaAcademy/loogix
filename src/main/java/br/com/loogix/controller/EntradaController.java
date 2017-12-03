@@ -41,7 +41,6 @@ public class EntradaController implements Serializable {
 
     @EJB
     private ProdutoAlmoxarifadoDAO produtoAlmoxarifadoDAO;
-    private ProdutoAlmoxarifado produtoAlmoxarifado;
 
     @EJB
     private ProdutoDAO produtoDAO;
@@ -53,12 +52,13 @@ public class EntradaController implements Serializable {
 
     private Entrada entrada;
     private List<Entrada> entradas;
+    private List<Entrada> entradasFiltradas;
 
     private Long idProdutoEntrada;
     private Long idFornecedorEntrada;
     private Long idAlmoxarifadoEntrada;
     private Long idProdutoAlmoxarifadoEntrada;
-    
+
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
@@ -74,11 +74,10 @@ public class EntradaController implements Serializable {
 
     public String novo() {
         this.entrada = new Entrada();
-        this.produtoAlmoxarifado = new ProdutoAlmoxarifado();
         this.entrada.setData(LocalDate.now());
         return "novo-entrada?faces-redirect=true";
     }
-    
+
     public String gravarNovaEntrada() {
         System.out.println("Iniciar método gravar nova entrada");
         return "entrada?faces-redirect=true";
@@ -86,26 +85,44 @@ public class EntradaController implements Serializable {
 
     public String gravar() {
 
+        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifadoEntrada);
         this.fornecedorExterno = this.fornecedorExternoDAO.buscaPorId(idFornecedorEntrada);
+        this.produto = this.produtoDAO.buscaPorId(idProdutoEntrada);
+
+        ProdutoAlmoxarifado pa = this.produtoAlmoxarifadoDAO.busca(
+                idAlmoxarifadoEntrada,
+                idProdutoEntrada
+        );
+        
+        if (pa == null) {
+            pa = new ProdutoAlmoxarifado();
+            pa.setAlmoxarifado(this.almoxarifado);
+            pa.setProduto(this.produto);
+            pa.setQuantidade(entrada.getQuantidade());
+            System.out.println("Novo produto almoxarifado");
+        } else {
+            System.out.println("Alterando produto almoxarifado");
+            System.out.println("PA: " + pa.getId());
+            pa.setQuantidade(entrada.getQuantidade() + pa.getQuantidade());
+        }
+        this.entrada.setProdutoAlmoxarifado(pa);
         this.entrada.setFornecedorExterno(fornecedorExterno);
         
-        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifadoEntrada);       
-        this.produto = this.produtoDAO.buscaPorId(idProdutoEntrada);
-        
-        this.produtoAlmoxarifado.setAlmoxarifado(this.almoxarifado);
-        this.produtoAlmoxarifado.setProduto(this.produto);
-        this.produtoAlmoxarifado.setQuantidade(0);
-        System.out.println(this.produtoAlmoxarifado);
-//        produtoAlmoxarifadoDAO.update(produtoAlmoxarifado);
-        this.entrada.setProdutoAlmoxarifado(this.produtoAlmoxarifado);
-        System.out.println(this.entrada);
-        produtoAlmoxarifado.setEntrada(this.entrada);
-        
-        this.produtoAlmoxarifadoDAO.add(this.produtoAlmoxarifado);
-        this.entradaDAO.add(this.entrada);
+        this.entradaDAO.update(this.entrada);
 
         this.entradas = this.entradaDAO.getList();
+        
         return "entrada?faces-redirect=true";
+    }
+
+    public String relatorio() {
+        return "relatorio-entrada?faces-redirect=true";
+    }
+
+    public String gerarRelatorioDetalhe() {
+        this.entradasFiltradas = this.entradaDAO.buscaPorTempoDeterminado(this.dataInicio, this.dataFim);
+
+        return "relatorio-entrada-detalhe?faces-redirect=true";
     }
 
     public Entrada getEntrada() {
@@ -191,10 +208,6 @@ public class EntradaController implements Serializable {
     public Long getSize() {
         return this.entradaDAO.getSize();
     }
-    
-    public String relatorio() {
-        return "relatorio-entrada";
-    }
 
     public LocalDate getDataInicio() {
         return dataInicio;
@@ -211,7 +224,13 @@ public class EntradaController implements Serializable {
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
-    
-    
+
+    public List<Entrada> getEntradasFiltradas() {
+        return entradasFiltradas;
+    }
+
+    public void setEntradasFiltradas(List<Entrada> entradasFiltradas) {
+        this.entradasFiltradas = entradasFiltradas;
+    }
 
 }

@@ -101,17 +101,20 @@
                     </div><!-- /.box-info-messager -->
                 </div><!-- /.message-header -->
                 <h:form>
+                    <p:growl id="feedBackUsuario" life="2000" autoUpdate="true" />
+
+                    <h:outputText value="#{saidaController.mensagem}" class="alert alert-danger"/>
                     <div class="message-box scroll">
                         <div class="message-in container-fluid p-l-3 p-r-3">
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="quantidade" value="Nome:" rendered="false"/>
-                                <h:inputText value="#{saidaController.quantidade}" id="quantidade" class="form-control" required="true" pt:placeholder="Digite a quantidade" />
+                                <h:inputText value="#{saidaController.saida.quantidade}" id="quantidade" class="form-control" required="true" pt:placeholder="Digite a quantidade" />
                             </div>
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="empregado" value="empregado" rendered="false"/>
-                                <h:selectOneMenu id="empregado" value="#{saidaController.empregadoSaida}" class="form-control custom-select">
+                                <h:selectOneMenu id="empregado" value="#{saidaController.idEmpregadoSaida}" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecionar o responsável" itemValue="#{null}" />
                                     <f:selectItems value="#{saidaController.empregados}" var="empregado" itemLabel="#{empregado.nome}" itemValue="#{empregado.id}" />
                                 </h:selectOneMenu>
@@ -119,7 +122,7 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="almoxarifado" value="almoxarifado" rendered="false"/>
-                                <h:selectOneMenu id="almoxarifado" value="#{saidaController.idProduto}" class="form-control custom-select">
+                                <h:selectOneMenu id="almoxarifado" value="#{saidaController.idAlmoxarifado}" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecionar o almoxarifado" itemValue="#{null}" />
                                     <f:selectItems value="#{saidaController.almoxarifados}" var="almoxarifado" itemLabel="#{almoxarifado.cidade}/#{almoxarifado.estado}" itemValue="#{almoxarifado.id}" />
                                 </h:selectOneMenu>
@@ -135,11 +138,12 @@
                             
 
                             <div class="clearfix m-t-1">
-                                <h:commandButton action="#{saidaController.gravar()}" value="Gravar Saida" class="btn btn-success form-control" />
+                                <p:commandButton action="#{saidaController.gravar()}" value="Gravar Saida" class="btn btn-success form-control" update="@form" />
                             </div>
                         </div>
                     </div>
                 </h:form>
+                
             </div>
 
         </section>

@@ -8,6 +8,7 @@ package br.com.loogix.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,7 +37,7 @@ public class Saida implements Serializable {
     @JoinColumn (name = "id_empregado")
     private Empregado empregado;
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn (name = "id_produto_almoxarifado")
     private ProdutoAlmoxarifado produtoAlmoxarifado;
 

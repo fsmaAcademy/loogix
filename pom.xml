@@ -38,6 +38,11 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 
