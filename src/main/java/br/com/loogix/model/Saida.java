@@ -8,7 +8,6 @@ package br.com.loogix.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +28,6 @@ public class Saida implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(columnDefinition = "DATE")
     private LocalDate data;
     
     private Integer quantidade;
@@ -43,7 +41,6 @@ public class Saida implements Serializable {
     private ProdutoAlmoxarifado produtoAlmoxarifado;
 
     public Saida() {
-        this.data = LocalDate.now();
         this.quantidade = 0;
     }
 

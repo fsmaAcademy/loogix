@@ -61,9 +61,6 @@ public class EntradaController implements Serializable {
     
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    
-    public EntradaController() {
-    }
 
     public String detalhe(Entrada entrada) {
         this.entrada = entrada;
@@ -77,38 +74,38 @@ public class EntradaController implements Serializable {
 
     public String novo() {
         this.entrada = new Entrada();
+        this.produtoAlmoxarifado = new ProdutoAlmoxarifado();
+        this.entrada.setData(LocalDate.now());
         return "novo-entrada?faces-redirect=true";
+    }
+    
+    public String gravarNovaEntrada() {
+        System.out.println("Iniciar método gravar nova entrada");
+        return "entrada?faces-redirect=true";
     }
 
     public String gravar() {
 
         this.fornecedorExterno = this.fornecedorExternoDAO.buscaPorId(idFornecedorEntrada);
         this.entrada.setFornecedorExterno(fornecedorExterno);
-
-        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifadoEntrada);
+        
+        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifadoEntrada);       
         this.produto = this.produtoDAO.buscaPorId(idProdutoEntrada);
-        this.produtoAlmoxarifado = produtoAlmoxarifadoDAO.busca(
-                this.idAlmoxarifadoEntrada,
-                this.idProdutoEntrada
-        );
+        
         this.produtoAlmoxarifado.setAlmoxarifado(this.almoxarifado);
         this.produtoAlmoxarifado.setProduto(this.produto);
         this.produtoAlmoxarifado.setQuantidade(0);
+        System.out.println(this.produtoAlmoxarifado);
+//        produtoAlmoxarifadoDAO.update(produtoAlmoxarifado);
+        this.entrada.setProdutoAlmoxarifado(this.produtoAlmoxarifado);
+        System.out.println(this.entrada);
+        produtoAlmoxarifado.setEntrada(this.entrada);
+        
         this.produtoAlmoxarifadoDAO.add(this.produtoAlmoxarifado);
-
-        produtoAlmoxarifado.addEntrada(entrada);
-        produtoAlmoxarifadoDAO.update(produtoAlmoxarifado);
-        entradaDAO.add(entrada);
+        this.entradaDAO.add(this.entrada);
 
         this.entradas = this.entradaDAO.getList();
-
         return "entrada?faces-redirect=true";
-    }
-
-    public String excluir(Entrada entrada) {
-        this.entradaDAO.delete(entrada);
-        this.entradas = this.entradaDAO.getList();
-        return null;
     }
 
     public Entrada getEntrada() {

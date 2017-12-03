@@ -55,7 +55,7 @@ public class FornecedorExternoDAO implements Serializable {
 
     public FornecedorExterno buscaPorId(Long id) {
         TypedQuery<FornecedorExterno> tq = this.em.createQuery(
-                "selec fe from FornecedorExterno fe where fe.id = :id",
+                "select fe from FornecedorExterno fe where fe.id = :id",
                 FornecedorExterno.class
         );
         tq.setParameter("id", id);

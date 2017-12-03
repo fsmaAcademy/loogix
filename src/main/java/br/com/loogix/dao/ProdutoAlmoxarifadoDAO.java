@@ -5,8 +5,6 @@
  */
 package br.com.loogix.dao;
 
-import br.com.loogix.model.Almoxarifado;
-import br.com.loogix.model.Produto;
 import br.com.loogix.model.ProdutoAlmoxarifado;
 import java.io.Serializable;
 import javax.ejb.Stateless;

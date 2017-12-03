@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -34,27 +36,17 @@ public class ProdutoAlmoxarifado implements Serializable {
     @JoinColumn (name = "id_almoxarifado")
     private Almoxarifado almoxarifado;
     
-    @OneToMany (mappedBy = "produtoAlmoxarifado")
-    private List<Entrada> entradas;
+    @OneToOne (mappedBy = "produtoAlmoxarifado", cascade = CascadeType.PERSIST)
+    private Entrada entrada;
     
-    @OneToMany (mappedBy = "produtoAlmoxarifado")
-    private List<Saida> saidas;
+    @OneToOne (mappedBy = "produtoAlmoxarifado", cascade = CascadeType.PERSIST)
+    private Saida saida;
     
     @ManyToOne
     @JoinColumn (name = "id_produto")
     private Produto produto;
 
-    public ProdutoAlmoxarifado() {
-    }
-
-    public ProdutoAlmoxarifado(Long id, Integer quantidade, Almoxarifado almoxarifado, List<Entrada> entradas, List<Saida> saidas, Produto produto) {
-        this.id = id;
-        this.quantidade = quantidade;
-        this.almoxarifado = almoxarifado;
-        this.entradas = entradas;
-        this.saidas = saidas;
-        this.produto = produto;
-    }
+   
 
     public Integer getQuantidade() {
         return quantidade;
@@ -72,24 +64,35 @@ public class ProdutoAlmoxarifado implements Serializable {
         this.almoxarifado = almoxarifado;
     }
 
-    public List<Entrada> getEntradas() {
-        return Collections.unmodifiableList(entradas);
+//    public List<Entrada> getEntradas() {
+//        return Collections.unmodifiableList(entradas);
+//    }
+//    
+//    public void addEntrada(Entrada entrada) {
+//        this.entradas.add(entrada);
+//        entrada.setProdutoAlmoxarifado(this);
+//        this.quantidade += entrada.getQuantidade();
+//    }
+
+    public Entrada getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(Entrada entrada) {
+        this.entrada = entrada;
     }
     
-    public void addEntrada(Entrada entrada) {
-        this.entradas.add(entrada);
-        entrada.setProdutoAlmoxarifado(this);
-        this.quantidade += entrada.getQuantidade();
-    }
-
-    public List<Saida> getSaidas() {
-        return Collections.unmodifiableList(saidas);
-    }
-
-    public void addSaida(Saida saida) {
-        this.saidas.add(saida);
-        saida.setProdutoAlmoxarifado(this);
-    }
+    
+    
+//    public List<Saida> getSaidas() {
+//        return Collections.unmodifiableList(saidas);
+//    }
+//
+//    public void addSaida(Saida saida) {
+//        this.saidas.add(saida);
+//        saida.setProdutoAlmoxarifado(this);
+//        this.quantidade -= saida.getQuantidade();
+//    }
 
     public Produto getProduto() {
         return produto;
@@ -107,9 +110,19 @@ public class ProdutoAlmoxarifado implements Serializable {
         this.id = id;
     }
 
+    public Saida getSaida() {
+        return saida;
+    }
+
+    public void setSaida(Saida saida) {
+        this.saida = saida;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "ProdutoAlmoxarifado{" + "id=" + id + ", quantidade=" + quantidade + ", almoxarifado=" + almoxarifado + ", entradas=" + entradas + ", saidas=" + saidas + ", produto=" + produto + '}';
+        return "ProdutoAlmoxarifado{" + "id=" + id + ", quantidade=" + quantidade + ", almoxarifado=" + almoxarifado + ", entrada=" + entrada + ", saida=" + saida + ", produto=" + produto + '}';
     }
 
     @Override

@@ -6,7 +6,6 @@
 package br.com.loogix.dao;
 
 import br.com.loogix.model.Produto;
-import br.com.loogix.model.ProdutoAlmoxarifado;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -61,7 +60,7 @@ public class ProdutoDAO implements Serializable {
     public Produto buscaPorId(Long id) {
 
         TypedQuery<Produto> tq = this.em.createQuery(
-                "selec p from Produto p where p.id = :id",
+                "select p from Produto p where p.id = :id",
                 Produto.class
         );
         tq.setParameter("id", id);

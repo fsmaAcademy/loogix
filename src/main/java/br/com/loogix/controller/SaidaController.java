@@ -63,50 +63,42 @@ public class SaidaController implements Serializable {
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
-    public String detalhe(Saida saida) {
-        this.saida = saida;
-        return "saida-detalhe?faces-redirect=true";
-    }
-
     public String listar() {
         this.saidas = this.saidaDAO.getList();
         return "saida?faces-redirect=true";
     }
 
-    public String iniciarAlterar(Saida saida) {
-        this.saida = saida;
+    public String novo() {
+        this.saida = new Saida();
+        this.produtoAlmoxarifado = new ProdutoAlmoxarifado();
+        this.saida.setData(LocalDate.now());
         return "novo-saida?faces-redirect=true";
     }
-
+    
     public String gravar() {
-
-        this.empregado = this.empregadoDAO.buscaPorId(idEmpregadoSaida);
+        
+        this.empregado = this.empregadoDAO.buscaPorId(this.idEmpregadoSaida);
         this.saida.setEmpregado(this.empregado);
-        System.out.println("Adicionou empregado");
-
-        this.produto = this.produtoDAO.buscaPorId(idProduto);
-        System.out.println("Adicionou Produto");
-        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifado);
-        System.out.println("Adicionou Almoxarifado");
-
-        this.produtoAlmoxarifado = new ProdutoAlmoxarifado();
-        this.produtoAlmoxarifado = this.produtoAlmoxarifadoDAO.busca(idAlmoxarifado, idProduto);
+        
+        this.almoxarifado = this.almoxarifadoDAO.buscaPorId(this.idProduto);
+        this.produtoAlmoxarifado.setAlmoxarifado(this.almoxarifado);
+        
+        this.produto = this.produtoDAO.buscaPorId(this.idProduto);
+        
+        this.produtoAlmoxarifado.setProduto(this.produto);
         this.produtoAlmoxarifado.setQuantidade(this.saida.getQuantidade());
+        
         this.saida.setProdutoAlmoxarifado(this.produtoAlmoxarifado);
-        this.saida.setQuantidade(this.quantidade);
-        this.produtoAlmoxarifado.addSaida(saida);
-        this.produtoAlmoxarifadoDAO.update(this.produtoAlmoxarifado);
-
-        if (produtoAlmoxarifado.getQuantidade() < saida.getQuantidade()) {
-            System.out.println("Não tem produtos suficientes");
-            return null;
+        this.produtoAlmoxarifado.setSaida(this.saida);
+        
+        if(produtoAlmoxarifadoDAO.busca(this.idAlmoxarifado, this.idProduto) != null) {
+            this.produtoAlmoxarifadoDAO.update(this.produtoAlmoxarifado);
+        } else {
+            this.produtoAlmoxarifadoDAO.add(produtoAlmoxarifado);
         }
 
         this.saidaDAO.add(saida);
-        System.out.println("Produto adicionado com sucesso");
-
         this.saidas = this.saidaDAO.getList();
-
         return "saida?faces-redirect=true";
     }
     
@@ -129,13 +121,7 @@ public class SaidaController implements Serializable {
         this.dataFim = null;
         return "relatorio-saida?faces-redirect=true";
     }
-
-    public String excluir(Saida saida) {
-        this.saidaDAO.delete(saida);
-        this.saidas = this.saidaDAO.getList();
-        return null;
-    }
-
+    
     public Produto getProduto() {
         return produto;
     }

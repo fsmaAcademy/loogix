@@ -99,22 +99,20 @@
                         </div>
                     </div><!-- /.box-info-messager -->
                 </div><!-- /.message-header -->
+
+
+
                 <h:form>
                     <div class="message-box scroll">
                         <div class="message-in container-fluid p-l-3 p-r-3">
 
-                            <div class="clearfix m-t-3">
-                                <h:outputLabel for="data" value="Data" rendered="false"/>
-                                <h:outputText value="#{entradaController.entrada.data}" id="data"/>
+                            <div class="clearfix m-t-1">
+                                <h:outputLabel for="quantidade" value="Quantidade" rendered="true"/>
+                                <h:inputText value="#{entradaController.entrada.quantidade}" id="quantidade" class="form-control" pt:placeholder="Digite a quantidade"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="quantidade" value="Nome:" rendered="false"/>
-                                <h:inputText value="#{entradaController.entrada.quantidade}" id="quantidade" class="form-control" required="true" pt:placeholder="Digite a quantidade"/>
-                            </div>
-
-                            <div class="clearfix m-t-1">
-                                <h:outputLabel for="fornecedor" value="Almoxarifado" rendered="false"/>
+                                <h:outputLabel for="fornecedor" value="Fornecedor"/>
                                 <h:selectOneMenu id="fornecedor" value="#{entradaController.idFornecedorEntrada}" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecionar o Fornecedor" itemValue="#{null}" />
                                     <f:selectItems value="#{entradaController.fornecedores}" var="fornecedor" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor.id}" />
@@ -122,15 +120,15 @@
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="produto" value="Almoxarifado" rendered="false"/>
+                                <h:outputLabel for="produto" value="Produto"/>
                                 <h:selectOneMenu id="produto" value="#{entradaController.idProdutoEntrada}" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecione o produto" itemValue="#{null}" />
-                                    <f:selectItems value="#{entradaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produo.id}" />
+                                    <f:selectItems value="#{entradaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}" />
                                 </h:selectOneMenu>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="almoxarifado" value="Almoxarifado" rendered="false"/>
+                                <h:outputLabel for="almoxarifado" value="Almoxarifado"/>
                                 <h:selectOneMenu id="almoxarifado" value="#{entradaController.idAlmoxarifadoEntrada}" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecione o Almoxarifado" itemValue="#{null}" />
                                     <f:selectItems value="#{entradaController.almoxarifados}" var="amoxarifado" itemLabel="#{amoxarifado.cidade} / #{amoxarifado.estado}" itemValue="#{amoxarifado.id}" />
@@ -139,7 +137,7 @@
 
 
                             <div class="clearfix m-t-1">
-                                <h:commandButton action="#{fornecedorController.gravar()}" value="Gravar fornecedor" class="btn btn-success form-control" />
+                                <h:commandButton action="#{entradaController.gravar()}" value="Gravar Entrada" class="btn btn-success form-control" />
                             </div>
                         </div>
                     </div>
