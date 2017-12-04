@@ -88,22 +88,22 @@
                         <h:form>
 
                             <div class="clearfix m-t-3">
-                                <h:outputLabel for="codigo" value="Código" rendered="false"/>
-                                <h:inputText value="#{produtoController.produto.codigo}" id="codigo" class="form-control" required="true" pt:placeholder="Digite o codigo do produto"/>
+                                <p:outputLabel for="codigo" value="Código" rendered="true"/>
+                                <p:inputText value="#{produtoController.produto.codigo}" id="codigo" class="form-control" required="true" pt:placeholder="Digite o codigo do produto"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="nome" value="Nome:" rendered="false"/>
-                                <h:inputText value="#{produtoController.produto.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome do produto"/>
+                                <p:outputLabel for="nome" value="Nome:" rendered="true"/>
+                                <p:inputText value="#{produtoController.produto.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome do produto"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="descricao" value="Descrição" rendered="false"/>
-                                <h:inputTextarea value="#{produtoController.produto.descricao}" id="descricao" class="form-control" required="true" pt:placeholder="Descrição do produto"/>
+                                <p:outputLabel for="descricao" value="Descrição" rendered="true"/>
+                                <p:inputTextarea value="#{produtoController.produto.descricao}" id="descricao" class="form-control" required="true" pt:placeholder="Descrição do produto" style="height: 300px;"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:commandButton action="#{produtoController.gravar()}" value="Gravar produto" class="btn btn-success form-control" />
+                                <p:commandButton action="#{produtoController.gravar()}" value="Gravar produto" class="btn btn-success form-control" />
                             </div>
 
 

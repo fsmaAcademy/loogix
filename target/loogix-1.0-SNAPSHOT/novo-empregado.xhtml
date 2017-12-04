@@ -86,26 +86,26 @@
                         <h:form>
 
                             <div class="clearfix m-t-3">
-                                <h:outputLabel for="matricula" value="Matricula" rendered="false"/>
-                                <h:inputText value="#{empregadoController.empregado.matricula}" id="matricula" pt:placeholder="Digite a matricula do empregado"/>
+                                <h:outputLabel for="matricula" value="Matricula" rendered="true"/>
+                                <h:inputText value="#{empregadoController.empregado.matricula}" id="matricula" required="true" pt:placeholder="Digite a matricula do empregado"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="nome" value="Nome:" rendered="false"/>
+                                <h:outputLabel for="nome" value="Nome:" rendered="true"/>
                                 <h:inputText value="#{empregadoController.empregado.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome do empregado"/>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="funcao" value="Função" rendered="false"/>
-                                <h:selectOneMenu id="funcao" value="#{empregadoController.funcaoEmpregado}" class="form-control custom-select">
+                                <h:outputLabel for="funcao" value="Função" rendered="true"/>
+                                <h:selectOneMenu id="funcao" value="#{empregadoController.funcaoEmpregado}" required="true" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecionar uma função" itemValue="#{null}" />
                                     <f:selectItems value="#{empregadoController.funcoes}" var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao.id}" />
                                 </h:selectOneMenu>
                             </div>
 
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="almoxarifado" value="Almoxarifado" rendered="false"/>
-                                <h:selectOneMenu id="almoxarifado" value="#{empregadoController.almoxarifadoEmpregado}" class="form-control custom-select">
+                                <h:outputLabel for="almoxarifado" value="Almoxarifado" rendered="true"/>
+                                <h:selectOneMenu id="almoxarifado" value="#{empregadoController.almoxarifadoEmpregado}" rendered="true" class="form-control custom-select">
                                     <f:selectItem itemLabel="Selecionar o número do almoxarifado" itemValue="#{null}" />
                                     <f:selectItems value="#{empregadoController.almoxarifados}" var="almoxarifado" itemLabel="#{almoxarifado.numero}" itemValue="#{almoxarifado.id}" />
                                 </h:selectOneMenu>

@@ -5,7 +5,8 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
              xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="corpo">
 
@@ -57,7 +58,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </li>
-                            
+
                             <li class="waves-effect waves-teal no-pointer">
                                 <div class="left">
                                     <div class="content">
@@ -85,7 +86,7 @@
             <div class="message-info right">
                 <div class="message-header">
                     <div class="move-message">
-
+                        <h:outputText value="#{saidaController.mensagem}" class="alert alert-danger text-center"/>
                     </div><!-- /.move-message -->
                     <div class="box-info-messager">
 
@@ -103,7 +104,6 @@
                 <h:form>
                     <p:growl id="feedBackUsuario" life="2000" autoUpdate="true" />
 
-                    <h:outputText value="#{saidaController.mensagem}" class="alert alert-danger"/>
                     <div class="message-box scroll">
                         <div class="message-in container-fluid p-l-3 p-r-3">
 
@@ -114,7 +114,7 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="empregado" value="empregado" rendered="false"/>
-                                <h:selectOneMenu id="empregado" value="#{saidaController.idEmpregadoSaida}" class="form-control custom-select">
+                                <h:selectOneMenu id="empregado" value="#{saidaController.idEmpregadoSaida}" class="form-control custom-select" required="true">
                                     <f:selectItem itemLabel="Selecionar o responsável" itemValue="#{null}" />
                                     <f:selectItems value="#{saidaController.empregados}" var="empregado" itemLabel="#{empregado.nome}" itemValue="#{empregado.id}" />
                                 </h:selectOneMenu>
@@ -122,20 +122,20 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="almoxarifado" value="almoxarifado" rendered="false"/>
-                                <h:selectOneMenu id="almoxarifado" value="#{saidaController.idAlmoxarifado}" class="form-control custom-select">
+                                <h:selectOneMenu id="almoxarifado" value="#{saidaController.idAlmoxarifado}" class="form-control custom-select" rendered="true">
                                     <f:selectItem itemLabel="Selecionar o almoxarifado" itemValue="#{null}" />
                                     <f:selectItems value="#{saidaController.almoxarifados}" var="almoxarifado" itemLabel="#{almoxarifado.cidade}/#{almoxarifado.estado}" itemValue="#{almoxarifado.id}" />
                                 </h:selectOneMenu>
                             </div>
-                            
+
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="produto" value="produto" rendered="false"/>
-                                <h:selectOneMenu id="produto" value="#{saidaController.idProduto}" class="form-control custom-select">
+                                <h:selectOneMenu id="produto" value="#{saidaController.idProduto}" class="form-control custom-select" required="true">
                                     <f:selectItem itemLabel="Selecionar o produto" itemValue="#{null}" />
                                     <f:selectItems value="#{saidaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}" />
                                 </h:selectOneMenu>
                             </div>
-                            
+
 
                             <div class="clearfix m-t-1">
                                 <p:commandButton action="#{saidaController.gravar()}" value="Gravar Saida" class="btn btn-success form-control" update="@form" />
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                 </h:form>
-                
+
             </div>
 
         </section>

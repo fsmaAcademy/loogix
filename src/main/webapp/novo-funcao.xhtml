@@ -85,11 +85,11 @@
                     <div class="message-in container-fluid p-l-3 p-r-3">
                         <h:form>
                             <div class="clearfix m-t-1">
-                                <h:outputLabel for="nome" value="Nome:" rendered="false"/>
-                                <h:inputText value="#{funcaoController.funcao.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome da função"/>
+                                <p:outputLabel for="nome" value="Nome:"/>
+                                <p:inputText value="#{funcaoController.funcao.nome}" id="nome" class="form-control" required="true" pt:placeholder="Digite o nome da função"/>
                             </div>
                             <div class="clearfix m-t-1">
-                                <h:commandButton action="#{funcaoController.gravar()}" value="Gravar Função" class="btn btn-success form-control" />
+                                <p:commandButton action="#{funcaoController.gravar()}" value="Gravar Função" class="btn btn-success form-control" />
                             </div>
 
                         </h:form>

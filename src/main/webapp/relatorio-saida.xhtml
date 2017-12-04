@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </li>
-
+                            
                             <li class="waves-effect waves-teal no-pointer">
                                 <div class="left">
                                     <div class="content">
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="left m-t-1">
                                     <div>
-                                        <h:commandButton action="#{saidaController.relatorio()}" value="Exibir produtos" class="btn btn-default"></h:commandButton>
+                                        <h:commandButton action="#{saidaController.relatorio()}" value="Emitir relatório" class="btn btn-default"></h:commandButton>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -85,6 +85,7 @@
             <div class="message-info right">
                 <div class="message-header">
                     <div class="move-message">
+                        <h:outputText value="#{saidaController.mensagem}" class="alert alert-danger text-center"/>
                     </div>
                     <div class="box-info-messager">
 
@@ -100,23 +101,19 @@
                         <div class="box-content">
                             <div class="m-t-3">
                                 <h:form>
-
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <p:outputLabel for="dataInicio" value="Data início:" />
-                                            <p:inputMask id="dataInicio" value="#{saidaController.dataInicio}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
+                                            <p:inputMask id="dataInicio" value="#{saidaController.dataInicio}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data" required="true"/>
                                         </div>
                                         <div class="col-lg-3">
                                             <p:outputLabel for="dataFim" value="Data de Fim" />
-                                            <p:inputMask id="dataFim" value="#{saidaController.dataFim}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data"/>
+                                            <p:inputMask id="dataFim" value="#{saidaController.dataFim}" mask="99/99/9999" pt:placeholder="DIA/MÊS/ANO - 00/00/0000" class="campo-data" required="true"/>
                                         </div>
                                         <div class="col-lg-3">
                                             <h:commandButton action="#{saidaController.gerarRelatorioDetalhe()}" value="Emitir relatório" class="btn btn-primary m-t-1 m-t-btn"/>
                                         </div>
-
                                     </div>
-                                    
-
                                 </h:form>
                             </div>
                         </div>

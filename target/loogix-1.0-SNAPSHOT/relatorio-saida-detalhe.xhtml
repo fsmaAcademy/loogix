@@ -10,10 +10,10 @@
 
         <section id="message">
 
-            <h1>Relatório detalhando entre as datas #{entradaController.dataInicio} e #{entradaController.dataFim}</h1>
+            <h1>Relatório detalhando entre as datas #{saidaController.dataInicio} e #{saidaController.dataFim}</h1>
 
             <h:form>
-                <p:dataTable id="tbl" var="entrada" value="#{entradaController.entradasFiltradas}"
+                <p:dataTable id="tbl" var="saida" value="#{saidaController.saidasFiltradas}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" style="margin-bottom:20px">
 
@@ -21,21 +21,29 @@
                         <f:facet name="header">
                             <h:outputText value="Data"/>
                         </f:facet>
-                        <h:outputText value="#{entrada.dataFormatada}" />
+                        <h:outputText value="#{saida.dataFormatada}" />
                     </p:column>
 
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Fornecedor" />
+                            <h:outputText value="Responsável" />
                         </f:facet>
-                        <h:outputText value="#{entrada.fornecedorExterno.nome}" />
+                        <h:outputText value="#{saida.empregado.nome}" />
                     </p:column>
+
 
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Produto" />
                         </f:facet>
-                        <h:outputText value="#{entrada.produtoAlmoxarifado.produto.nome}" />
+                        <h:outputText value="#{saida.produtoAlmoxarifado.produto.nome}" />
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantidade" />
+                        </f:facet>
+                        <h:outputText value="#{saida.quantidade}" />
                     </p:column>
                 </p:dataTable>
 

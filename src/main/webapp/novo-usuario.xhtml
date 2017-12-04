@@ -18,13 +18,13 @@
             <h:form>
                 <fieldset class="clearfix">
                     <span class="fontawesome-user"></span>
-                    <h:inputText value="#{loginController.usuario.login}" pt:placeholder="Digite o nome do usuário"/>
+                    <h:inputText value="#{loginController.usuario.login}" required="true" pt:placeholder="Digite o nome do usuário"/>
                     <span class="fontawesome-lock"></span>
-                    <h:inputSecret value="#{loginController.usuario.senha}" pt:placeholder="Digite a sua senha secreta"/>
+                    <h:inputSecret value="#{loginController.usuario.senha}" required="true" pt:placeholder="Digite a sua senha secreta"/>
                     <span class="fontawesome-lock"></span>
-                    <h:inputText value="#{loginController.usuario.nomeSobrenome}" pt:placeholder="Digite seu nome e sobrenome"/>
+                    <h:inputText value="#{loginController.usuario.nomeSobrenome}" required="true" pt:placeholder="Digite seu nome e sobrenome"/>
                     <span class="fontawesome-lock"></span>
-                    <h:inputText value="#{loginController.usuario.cidade}" pt:placeholder="Digite a sua cidade"/>
+                    <h:inputText value="#{loginController.usuario.cidade}" required="true" pt:placeholder="Digite a sua cidade"/>
                     
                     
                     <h:commandButton action="#{loginController.gravaUsuario()}" value="Gravar Usuário" />

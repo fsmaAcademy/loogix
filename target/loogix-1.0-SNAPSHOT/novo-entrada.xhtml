@@ -5,7 +5,8 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
              xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="corpo">
 
@@ -84,10 +85,9 @@
             <div class="message-info right">
                 <div class="message-header">
                     <div class="move-message">
-
+                        <h:outputText value="#{entradaController.mensagem}" class="alert alert-danger text-center"/>
                     </div><!-- /.move-message -->
                     <div class="box-info-messager">
-
                         <div class="content">
                             <div class="username">
                                 Adicionar uma nova entrada
@@ -101,7 +101,6 @@
                 </div><!-- /.message-header -->
 
 
-
                 <h:form>
                     <div class="message-box scroll">
                         <div class="message-in container-fluid p-l-3 p-r-3">
@@ -113,7 +112,7 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="fornecedor" value="Fornecedor"/>
-                                <h:selectOneMenu id="fornecedor" value="#{entradaController.idFornecedorEntrada}" class="form-control custom-select">
+                                <h:selectOneMenu id="fornecedor" value="#{entradaController.idFornecedorEntrada}" class="form-control custom-select" required="true">
                                     <f:selectItem itemLabel="Selecionar o Fornecedor" itemValue="#{null}" />
                                     <f:selectItems value="#{entradaController.fornecedores}" var="fornecedor" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor.id}" />
                                 </h:selectOneMenu>
@@ -121,7 +120,7 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="produto" value="Produto"/>
-                                <h:selectOneMenu id="produto" value="#{entradaController.idProdutoEntrada}" class="form-control custom-select">
+                                <h:selectOneMenu id="produto" value="#{entradaController.idProdutoEntrada}" class="form-control custom-select" required="true">
                                     <f:selectItem itemLabel="Selecione o produto" itemValue="#{null}" />
                                     <f:selectItems value="#{entradaController.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}" />
                                 </h:selectOneMenu>
@@ -129,7 +128,7 @@
 
                             <div class="clearfix m-t-1">
                                 <h:outputLabel for="almoxarifado" value="Almoxarifado"/>
-                                <h:selectOneMenu id="almoxarifado" value="#{entradaController.idAlmoxarifadoEntrada}" class="form-control custom-select">
+                                <h:selectOneMenu id="almoxarifado" value="#{entradaController.idAlmoxarifadoEntrada}" class="form-control custom-select" required="true">
                                     <f:selectItem itemLabel="Selecione o Almoxarifado" itemValue="#{null}" />
                                     <f:selectItems value="#{entradaController.almoxarifados}" var="amoxarifado" itemLabel="#{amoxarifado.cidade} / #{amoxarifado.estado}" itemValue="#{amoxarifado.id}" />
                                 </h:selectOneMenu>

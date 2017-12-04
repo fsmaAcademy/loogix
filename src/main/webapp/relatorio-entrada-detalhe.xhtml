@@ -9,7 +9,11 @@
     <ui:define name="corpo">
 
         <section id="message">
-
+            
+            
+            
+            
+            
             <h1>Relatório detalhando entre as datas #{entradaController.dataInicio} e #{entradaController.dataFim}</h1>
 
             <h:form>
@@ -37,6 +41,13 @@
                         </f:facet>
                         <h:outputText value="#{entrada.produtoAlmoxarifado.produto.nome}" />
                     </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantidade" />
+                        </f:facet>
+                        <h:outputText value="#{entrada.quantidade}" />
+                    </p:column>
                 </p:dataTable>
 
                 <p:panel header="Exportar os dados">
@@ -46,6 +57,14 @@
                     </h:commandLink>
                 </p:panel>
             </h:form>
+            
+            
+            
+            
+            
+            
+
+            
 
 
         </section>

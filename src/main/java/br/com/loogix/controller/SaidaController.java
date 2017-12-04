@@ -10,7 +10,6 @@ import br.com.loogix.dao.EmpregadoDAO;
 import br.com.loogix.dao.ProdutoAlmoxarifadoDAO;
 import br.com.loogix.dao.ProdutoDAO;
 import br.com.loogix.dao.SaidaDAO;
-import br.com.loogix.helper.MsgFeedBackUsuario;
 import br.com.loogix.model.Almoxarifado;
 import br.com.loogix.model.Empregado;
 import br.com.loogix.model.Produto;
@@ -60,8 +59,6 @@ public class SaidaController implements Serializable {
     private Long idProduto;
     private Long idAlmoxarifado;
 
-    private Integer quantidade = 0;
-
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private String mensagem;
@@ -80,55 +77,45 @@ public class SaidaController implements Serializable {
 
     public String gravar() {
 
-        mensagem = null;
+        this.mensagem = null;
         this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifado);
         this.empregado = this.empregadoDAO.buscaPorId(idEmpregadoSaida);
         this.produto = this.produtoDAO.buscaPorId(idProduto);
-
-        MsgFeedBackUsuario.AdicionaMensagemErro("Olá mundo");
-        System.out.println("Produto Id: " + idProduto);
-        System.out.println("Empregado Id: " + idEmpregadoSaida);
-        System.out.println("Almoxarifado Id: " + idAlmoxarifado);
-        //Quantidade tem que ser maior que ZERO
-
+        
         if (saida.getQuantidade() <= 0) {
             this.mensagem = "A quantidade deve ser maior que zero";
             return null;
         }
-
-        //Almoxarifado deve ser informado
+        
         if (almoxarifado == null) {
             this.mensagem = "O almoxarifado deve ser informado";
             return null;
         }
 
-        //Produto deve ser informado
         if (produto == null) {
             this.mensagem = "O produto deve ser informado";
             return null;
         }
-        //O produto deve referenciar ao almoxarifado
+
         ProdutoAlmoxarifado pa = this.produtoAlmoxarifadoDAO.busca(
                 idAlmoxarifado,
                 idProduto
         );
         if (pa == null) {
-            this.mensagem = "O produto deve pertencer ao almoxarifado";
+            this.mensagem = "Não temos esse produto neste almoxarifado";
             return null;
         }
-        //O responsavel deve ser informado
+
         if (empregado == null) {
             this.mensagem = "O responsável deve ser informado";
             return null;
         }
-        //Quantidade inferior ou igual a quantidade em estoque
+
         if (pa.getQuantidade() < saida.getQuantidade()) {
             this.mensagem = "Quantidade informada não tem em nosso estoque";
             return null;
         }
 
-        System.out.println("Alterando produto almoxarifado");
-        System.out.println("PA: " + pa.getId());
         pa.setQuantidade(pa.getQuantidade() - saida.getQuantidade());
 
         this.saida.setProdutoAlmoxarifado(pa);
@@ -143,10 +130,27 @@ public class SaidaController implements Serializable {
     }
 
     public String gerarRelatorioDetalhe() {
+        
+        if (this.dataInicio == null) {
+            this.mensagem = "Data de inicio não foi encontrada";
+            return null;
+        }
+        
+        if (this.dataInicio == null) {
+            this.mensagem = "Data de fim não foi encontrada";
+            return null;
+        }
+        
         this.saidasFiltradas = this.saidaDAO.buscaPorTempoDeterminado(
                 this.dataInicio,
                 this.dataFim
         );
+        
+        if(this.saidasFiltradas == null) {
+            this.mensagem = "Não há registros entre essas datas";
+            return null;
+        }
+        
         return "relatorio-saida-detalhe?faces-redirect=true";
     }
 
@@ -266,14 +270,6 @@ public class SaidaController implements Serializable {
 
     public void setIdEmpregadoSaida(Long idEmpregadoSaida) {
         this.idEmpregadoSaida = idEmpregadoSaida;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public List<Saida> getSaidasFiltradas() {

@@ -62,6 +62,8 @@ public class EntradaController implements Serializable {
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
+    private String mensagem;
+
     public String detalhe(Entrada entrada) {
         this.entrada = entrada;
         return "entrada-detalhe?faces-redirect=true";
@@ -85,6 +87,8 @@ public class EntradaController implements Serializable {
 
     public String gravar() {
 
+        this.mensagem = null;
+
         this.almoxarifado = this.almoxarifadoDAO.buscaPorId(idAlmoxarifadoEntrada);
         this.fornecedorExterno = this.fornecedorExternoDAO.buscaPorId(idFornecedorEntrada);
         this.produto = this.produtoDAO.buscaPorId(idProdutoEntrada);
@@ -93,12 +97,39 @@ public class EntradaController implements Serializable {
                 idAlmoxarifadoEntrada,
                 idProdutoEntrada
         );
+
+        if(this.entrada.getQuantidade() <= 0) {
+            this.mensagem = "A quantidade precisa ser maior que ZERO";
+            return null;
+        }
         
+        if (this.fornecedorExterno == null) {
+            this.mensagem = "O fornecedor precisa ser referenciado";
+            return null;
+        }
+        
+        if (this.produto == null) {
+            this.mensagem = "O produto precisa ser informado";
+            return null;
+        }
+
+        if (this.almoxarifado == null) {
+            this.mensagem = "O almoxarifado precisa ser informado";
+            return null;
+        }
+        
+
         if (pa == null) {
             pa = new ProdutoAlmoxarifado();
             pa.setAlmoxarifado(this.almoxarifado);
             pa.setProduto(this.produto);
             pa.setQuantidade(entrada.getQuantidade());
+            
+            if (this.entrada.getQuantidade() <= 0) {
+                this.mensagem = "A quantidade precisa ser maior que zero";
+                return null;
+            }
+            
             System.out.println("Novo produto almoxarifado");
         } else {
             System.out.println("Alterando produto almoxarifado");
@@ -107,11 +138,11 @@ public class EntradaController implements Serializable {
         }
         this.entrada.setProdutoAlmoxarifado(pa);
         this.entrada.setFornecedorExterno(fornecedorExterno);
-        
+
         this.entradaDAO.update(this.entrada);
 
         this.entradas = this.entradaDAO.getList();
-        
+
         return "entrada?faces-redirect=true";
     }
 
@@ -120,7 +151,24 @@ public class EntradaController implements Serializable {
     }
 
     public String gerarRelatorioDetalhe() {
+        
+        if (this.dataInicio == null) {
+            this.mensagem = "Data de inicio não foi encontrada";
+            return null;
+        }
+        
+        if (this.dataInicio == null) {
+            this.mensagem = "Data de fim não foi encontrada";
+            return null;
+        }
+        
         this.entradasFiltradas = this.entradaDAO.buscaPorTempoDeterminado(this.dataInicio, this.dataFim);
+        
+        if(this.entradasFiltradas == null) {
+            this.mensagem = "Não há registros entre essas datas";
+            return null;
+        }
+        
 
         return "relatorio-entrada-detalhe?faces-redirect=true";
     }
@@ -233,4 +281,12 @@ public class EntradaController implements Serializable {
         this.entradasFiltradas = entradasFiltradas;
     }
 
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+    
 }
