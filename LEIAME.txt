@@ -1,0 +1,5 @@
+Página inicial do projeto:
+http://localhost:8080/loogix-1.0-SNAPSHOT/faces/index.xhtml
+
+As restrições estão na base de dados no formato .backup e também divididos por tabelas.
+Eu poderia ter colocado as restrições no modelo. Mas, talvez o senhor não iria gostar. Iria usar @Colomun

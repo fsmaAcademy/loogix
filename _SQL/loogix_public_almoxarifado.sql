@@ -1,0 +1,5 @@
+INSERT INTO public.almoxarifado (id, ativo, bairro, cidade, estado, logradouro, numero) VALUES (3, true, 'Centro', 'Macaé', 'RJ', 'Rua Governador Valadares, 1123', '135');
+INSERT INTO public.almoxarifado (id, ativo, bairro, cidade, estado, logradouro, numero) VALUES (4, true, 'Manuals', 'Manaus', 'AM', 'Rua Ananimais ', '12345');
+INSERT INTO public.almoxarifado (id, ativo, bairro, cidade, estado, logradouro, numero) VALUES (2, true, 'Tamoios', 'Cabo Frio', 'RJ', 'Rua das Pacas, 1110', '321');
+INSERT INTO public.almoxarifado (id, ativo, bairro, cidade, estado, logradouro, numero) VALUES (1, false, 'posse', 'Nova Iguaçu', 'RJ', 'Rua da Quitanda, 23', '12341512');
+INSERT INTO public.almoxarifado (id, ativo, bairro, cidade, estado, logradouro, numero) VALUES (6, false, 'Santa Tereza', 'Riberão', 'SP', 'Rua Meganis, 22569', '568987');
